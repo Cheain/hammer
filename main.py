@@ -1,6 +1,13 @@
 # coding=utf-8
-import people, random, report, reveive, threading, time, socket, select
-#this is test 
+import people
+import random
+import report
+import reveive
+import select
+import threading
+import time
+
+# this is test
 players = []
 sockets = []
 BUFFSIZE = 1024
@@ -40,7 +47,7 @@ def hit():
                 print(' %d ' % i, end="")
             print('have eggs')
             aplayer.send(report.hitEgg(aplayer.ID, aplayer.table, aplayer.field, random.choice(aplayer.egg)))
-            #time.sleep(5)
+            # time.sleep(5)
             # time.sleep(random.uniform(0, 3))
         except Exception as e:
             time.sleep(5)

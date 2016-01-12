@@ -1,5 +1,8 @@
 # coding=utf-8
-import socket, random, report, reveive
+import random
+import report
+import reveive
+import socket
 
 addrto = ('192.168.1.10', 8888)
 BUFFSIZE = 1024

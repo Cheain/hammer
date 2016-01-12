@@ -1,6 +1,6 @@
 # coding=utf-8
-import select, threading, time
-from socket import *
+import threading
+import time
 
 i = 0
 lock = threading.Lock
