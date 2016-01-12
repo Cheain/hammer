@@ -1,11 +1,12 @@
 # coding=utf-8
-import people
 import random
-import report
-import reveive
 import select
 import threading
 import time
+
+import people
+import report
+import reveive
 
 # this is test
 players = []
