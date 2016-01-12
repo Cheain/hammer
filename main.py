@@ -1,6 +1,6 @@
 # coding=utf-8
 import people, random, report, reveive, threading, time, socket, select
-
+#this is test 
 players = []
 sockets = []
 BUFFSIZE = 1024
