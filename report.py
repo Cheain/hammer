@@ -1,4 +1,4 @@
-# coding=utf-8
+# pack the message to send to the server
 import struct
 
 fields = {1: 'farm', 2: 'forest', 3: 'Jurassic Period'}

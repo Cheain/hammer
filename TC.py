@@ -1,4 +1,4 @@
-# coding=utf-8
+# a test for threading
 import threading
 import time
 

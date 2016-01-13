@@ -1,12 +1,14 @@
-# coding=utf-8
+# IDE : PyCharm Community Edition 5.0.3
+# Development language : Python 3.5.1
+# this is the client main logic used to test the server performance
 import random
 import select
 import threading
 import time
 
 import people
+import receive
 import report
-import reveive
 
 players = []
 sockets = []
@@ -30,7 +32,7 @@ def getMsg():
         try:
             sock, se, err = select.select(sockets, [], [], 5)
             for re in sock:
-                msg = reveive.getKind(re.recv(BUFFSIZE))  # recv msg
+                msg = receive.getKind(re.recv(BUFFSIZE))  # recv msg
                 players[msg['ID']].choose(msg)  # msg function
         except Exception as e:
             pass

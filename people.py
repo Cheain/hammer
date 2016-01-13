@@ -1,8 +1,9 @@
-# coding=utf-8
+# class to create player
 import random
-import report
-import reveive
 import socket
+
+import receive
+import report
 
 addrto = ('192.168.1.10', 8888)
 BUFFSIZE = 1024
@@ -53,10 +54,10 @@ class player:
 
 
 def creatPlayer(ID):
-    aplayer = player(ID, random.choice([1, 2, 3]), random.choice([0, 1]))#create aplayer
-    aplayer.send(report.chooseField(aplayer.ID, aplayer.field, aplayer.mode))#choose field and mode
-    tableMsg = reveive.getTable(aplayer.recv())
-    aplayer.setTable(tableMsg)#set table
-    eggMsg = reveive.getEgg(aplayer.recv())
-    aplayer.setEgg(eggMsg)#first set egg
+    aplayer = player(ID, random.choice([1, 2, 3]), random.choice([0, 1]))  # create aplayer
+    aplayer.send(report.chooseField(aplayer.ID, aplayer.field, aplayer.mode))  # choose field and mode
+    tableMsg = receive.getTable(aplayer.recv())
+    aplayer.setTable(tableMsg)  # set table
+    eggMsg = receive.getEgg(aplayer.recv())
+    aplayer.setEgg(eggMsg)  # first set egg
     return aplayer

@@ -1,4 +1,4 @@
-# coding =utf-8
+# unpack the message receive from the server
 import struct
 
 
@@ -19,7 +19,7 @@ def getEgg(getMsg):
     egg = []
     for i in range(32):
         if a & eggList == 1:
-            egg.append(i+1)
+            egg.append(i + 1)
         eggList = eggList >> 1
 
     getMsg = {'head': head, 'kind': kind, 'size': size, 'ID': ID, 'egg': egg, 'end': end}
