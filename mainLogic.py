@@ -8,7 +8,6 @@ import people
 import report
 import reveive
 
-# this is test
 players = []
 sockets = []
 BUFFSIZE = 1024
