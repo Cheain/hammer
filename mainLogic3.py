@@ -10,27 +10,31 @@ import people
 import receive
 import report
 
-players = []
-sockets = []
+players = {}
+sockets = {}
 BUFFSIZE = 1024
 playerNum = 200
-aGroup = 1
+aGroup = 20
 groupNum = int(playerNum / aGroup)
+lock = threading.RLock()
 
 
-def createPlayer():
-    for i in range(playerNum):
-        aplayer = people.creatPlayer(i)
-        sockets.append(aplayer.sock)
-        players.append(aplayer)
-        print('-------------------create player %d succeed-------------------' % i)
-    print('-------------------------create %d player in players[]-------------------------' % len(players))
+def createPlayer(group):
+    for i in range(aGroup):
+        try:
+            aplayer = people.creatPlayer(i + (group - 1) * aGroup)
+            sockets[i + (group - 1) * aGroup] = aplayer.sock
+            players[i + (group - 1) * aGroup] = aplayer
+            print('··················create player %d succeed··················'
+                  % (i + (group - 1) * aGroup))
+        except Exception as e:
+            pass
 
 
 def getMsg():
     while True:
         try:
-            sock, se, err = select.select(sockets, [], [], 5)
+            sock, se, err = select.select(list(sockets.values()), [], [], 5)
             for re in sock:
                 msg = receive.getKind(re.recv(BUFFSIZE))  # recv msg
                 players[msg['ID']].choose(msg)  # msg function
@@ -38,10 +42,11 @@ def getMsg():
             pass
 
 
-def hit():
+def hit(group):
     while True:
         try:
-            aplayer = random.choice(players)
+            NO = random.randint((group - 1) * aGroup, group * aGroup)
+            aplayer = players[NO]
             print('ID:%d,field:%d,table:%d,mode:%d,ownNick:%s,ownCoin:%d,mateNick:%s,mateCoin:%d,position'
                   % (aplayer.ID, aplayer.field, aplayer.table, aplayer.mode, aplayer.ownNick, aplayer.ownCoin,
                      aplayer.mateNick, aplayer.mateCoin), end="")
@@ -53,17 +58,15 @@ def hit():
             # time.sleep(5)
             # time.sleep(random.uniform(0, 3))
         except Exception as e:
-            time.sleep(0.2)
+            time.sleep(random.uniform(0, 1))
         finally:
-            time.sleep(0.2)
+            time.sleep(random.uniform(0, 1))
 
 
-t1 = threading.Thread(target=createPlayer)
-t2 = threading.Thread(target=hit)
-t3 = threading.Thread(target=getMsg)
-t1.start()
-t2.start()
-t3.start()
+for i in range(1, groupNum + 1):
+    t1 = threading.Thread(target=createPlayer, args=(i,)).start()
+    t2 = threading.Thread(target=hit, args=(i,)).start()
+t3 = threading.Thread(target=getMsg).start()
 
 # for i in range(groupNum):
 #    threading._start_new_thread(hit, ())

@@ -14,7 +14,7 @@ players = []
 sockets = []
 BUFFSIZE = 1024
 playerNum = 200
-aGroup = 1
+aGroup = 20
 groupNum = int(playerNum / aGroup)
 
 
@@ -38,10 +38,10 @@ def getMsg():
             pass
 
 
-def hit():
+def hit(group):
     while True:
         try:
-            aplayer = random.choice(players)
+            aplayer = random.choice(players[(group - 1) * aGroup:group * aGroup])
             print('ID:%d,field:%d,table:%d,mode:%d,ownNick:%s,ownCoin:%d,mateNick:%s,mateCoin:%d,position'
                   % (aplayer.ID, aplayer.field, aplayer.table, aplayer.mode, aplayer.ownNick, aplayer.ownCoin,
                      aplayer.mateNick, aplayer.mateCoin), end="")
@@ -53,22 +53,18 @@ def hit():
             # time.sleep(5)
             # time.sleep(random.uniform(0, 3))
         except Exception as e:
-            time.sleep(0.2)
+            time.sleep(random.uniform(0, 1))
         finally:
-            time.sleep(0.2)
+            time.sleep(random.uniform(0, 1))
 
 
-t1 = threading.Thread(target=createPlayer)
-t2 = threading.Thread(target=hit)
-t3 = threading.Thread(target=getMsg)
-t1.start()
-t2.start()
-t3.start()
+t1 = threading.Thread(target=createPlayer).start()
+for i in range(groupNum):
+    t2 = threading.Thread(target=hit, args=(i,)).start()
+t3 = threading.Thread(target=getMsg).start()
 
 # for i in range(groupNum):
 #    threading._start_new_thread(hit, ())
 while True:
-    print('\n\n\n\n\n·············································'
-          '·············································Count：%d'
-          % len(players))
+    print('············································%d' % len(players))
     time.sleep(10)
