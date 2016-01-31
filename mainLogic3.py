@@ -28,7 +28,7 @@ def createPlayer(group):
             print('··················create player %d succeed··················'
                   % (i + (group - 1) * aGroup))
         except Exception as e:
-            pass
+            print('#####################################################################################', e)
 
 
 def getMsg():

@@ -3,7 +3,7 @@ import struct
 
 
 def getTable(getMsg):
-    head, kind, size, table, ownNick, ownCoin, mateNick, mateCoin, end = struct.unpack('!BBBH4sI4sIB', getMsg)
+    head, kind, size, table, ownNick, ownCoin, mateNick, mateCoin, end = struct.unpack('!BBBH10sI10sIB', getMsg)
     ownNick = ownNick.decode('utf-8')
     mateNick = mateNick.decode('utf-8')
     getMsg = {'head': head, 'kind': kind, 'size': size, 'table': table, 'ownNick': ownNick,
@@ -15,7 +15,7 @@ def getTable(getMsg):
 
 def getEgg(getMsg):
     print(getMsg)
-    #print('------------------------------------------------%s------------%d%d' % (getMsg, getMsg[3], getMsg[4]))
+    # print('------------------------------------------------%s------------%d%d' % (getMsg, getMsg[3], getMsg[4]))
     head, kind, size, ID, eggList, end = struct.unpack('!BBBHIB', getMsg)
     a = 0x0001
     egg = []
@@ -34,7 +34,7 @@ def getEgg(getMsg):
 
 def getState(getMsg):
     head, kind, size, ID, site, state, WinnerNick, prize, ownNick, ownCoin, mateNick, mateCoin, addTag, addSite, end = \
-        struct.unpack('!BBBHBB4sI4sI4sIBBB', getMsg)
+        struct.unpack('!BBBHBB10sI10sI10sIBBB', getMsg)
     WinnerNick = WinnerNick.decode('utf-8')
     ownNick = ownNick.decode('utf-8')
     mateNick = mateNick.decode('utf-8')

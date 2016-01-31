@@ -13,7 +13,7 @@ import report
 players = []
 sockets = []
 BUFFSIZE = 1024
-playerNum = 200
+playerNum = 1
 aGroup = 1
 groupNum = int(playerNum / aGroup)
 
